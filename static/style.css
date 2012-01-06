@@ -1,0 +1,167 @@
+@font-face {
+    font-family: 'Lucida Bright';
+    src: url('LBRITE.TTF');
+}
+
+
+
+html, body{
+    font-family:'Lucida Bright', Times New Roman, Georgia, serif;
+    height:100%;
+    margin:0;
+    padding:0;
+    color:474747;
+    text-shadow: 0px 1px 1px #ffffff;
+    filter: dropshadow(color=#ffffff, offx=0, offy=1);
+    background-image:url("fabric_plaid.png");
+    background-repeat:repeat;
+}
+
+h1{
+    font-size:30px;    
+}
+
+h2{
+    font-size:24px;
+}
+
+h3{
+    font-size:18px;
+}
+
+
+a{
+    color:#ffb526;
+    font-style:regular;
+    text-decoration:none;
+}
+
+#kindle{
+    width:373px;
+    height:531px;
+    float:left;
+    margin-bottom:30px;
+    background-image:url('kindle.png');
+    background-repeat:none;
+}
+
+#right_side{
+    float:right;
+    width:430px;
+}
+
+#homepage_list{
+    margin-bottom:30px;
+}
+
+.homepage_inputs{
+    font-family:'Lucida Bright', Times New Roman, Georgia, serif;
+    font-size:18px;
+    color:474747;
+    text-shadow: 0px 1px 1px #ffffff;
+    filter: dropshadow(color=#ffffff, offx=0, offy=1);
+    background-color:#f5f5f5;
+    border:solid 1px #a0a0a0;
+    padding-left:15px;
+    padding-right:15px;
+    width:345px;
+    height:45px;
+    margin-bottom:10px;
+}
+
+#submit_button{
+        width:104px;
+        height:45px;
+        color:#ffb526;
+        border:none;
+        font-size:21.4px;
+        margin-top:20px;
+        font-family:'Lucida Bright', Times New Roman, Georgia, serif;
+        background-color:black;
+        background: #484848; /* Old browsers */
+        background: -moz-linear-gradient(top,  #484848 1%, #323232 100%); /* FF3.6+ */
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,#484848), color-stop(100%,#323232)); /* Chrome,Safari4+ */
+        background: -webkit-linear-gradient(top,  #484848 1%,#323232 100%); /* Chrome10+,Safari5.1+ */
+        background: -o-linear-gradient(top,  #484848 1%,#323232 100%); /* Opera 11.10+ */
+        background: -ms-linear-gradient(top,  #484848 1%,#323232 100%); /* IE10+ */
+        background: linear-gradient(top,  #484848 1%,#323232 100%); /* W3C */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#484848', endColorstr='#323232',GradientType=0 ); /* IE6-9 */
+	cursor:pointer;
+}
+
+
+#KindleFolder_logo{
+    font-size:30px;
+    color:#ffb526;
+    float:left;
+    margin-top:23px;
+}
+
+#created_by{
+    font-size:14px;
+    margin-top:33px;
+    float:right;
+    color:#efefef;
+}
+
+
+.flashes {
+	padding: 5px 0 5px 0;
+	border: 5px solid silver;
+}
+
+.flashes li.notice{
+	color: #ffb526;
+}
+
+.flashes li.error{
+	color: #FF0000;
+}
+
+
+/*Footer CSS*/
+
+
+#wrap {min-height: 100%;}
+
+#main {overflow:auto;
+	padding-bottom: 80px;  /* must be same height as the footer */
+        padding-top:40px;
+}
+
+#main_container{
+        width:860px;
+        margin:0 auto;
+}
+
+#footer {position: relative;
+	margin-top: -80px; /* negative value of footer height */
+	height: 80px;
+	clear:both;
+        background-color:black;
+        background: #484848; /* Old browsers */
+        background: -moz-linear-gradient(top,  #484848 1%, #323232 100%); /* FF3.6+ */
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,#484848), color-stop(100%,#323232)); /* Chrome,Safari4+ */
+        background: -webkit-linear-gradient(top,  #484848 1%,#323232 100%); /* Chrome10+,Safari5.1+ */
+        background: -o-linear-gradient(top,  #484848 1%,#323232 100%); /* Opera 11.10+ */
+        background: -ms-linear-gradient(top,  #484848 1%,#323232 100%); /* IE10+ */
+        background: linear-gradient(top,  #484848 1%,#323232 100%); /* W3C */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#484848', endColorstr='#323232',GradientType=0 ); /* IE6-9 */
+        text-shadow: 0px 1px 1px #282828;
+        filter: dropshadow(color=#282828, offx=0, offy=1);
+
+}
+
+#footer_container{
+        width:860px;
+        background-color:gray;
+        margin:0 auto;
+}
+/*Opera Fix*/
+body:before {
+	content:"";
+	height:100%;
+	float:left;
+	width:0;
+	margin-top:-32767px;/
+}

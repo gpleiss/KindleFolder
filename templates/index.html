@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+{% block body %}
+
+<table style="display:none">
+{% for account in accounts %}
+	<tr>
+		<td>{{ account.kindle_email }}</td>
+		<td>{{ account.personal_email }}</td>
+	</tr>
+{% endfor %}
+</table>
+
+
+
+	<h1>Quickly and easily send files to your Kindle via Dropbox</h1>
+	<h2>How it works:</h2>
+	<ol id="homepage_list">
+	    <li>Set up your Kindle by entering its email address below
+	    <li>A folder will appear in your Dropbox/Apps folder called KindleFolder
+	    <li>Drag any file into your KindleFolder and it will be sent automatically to your Kindle!
+	</ol>
+	<form method="post" action="add">
+	    <input type="text" name="personal_email" id="kindle_email" class="homepage_inputs" placeholder="Your email" required="required" />
+	    <input type="text" name="kindle_email" id="personal_email" class="homepage_inputs" placeholder="Your Kindle's email" required="required" />
+	    <input type="submit" class="button" value="Submit" id="submit_button">
+	</form>
+	
+{% endblock %}

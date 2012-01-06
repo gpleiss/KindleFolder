@@ -1,0 +1,51 @@
+<html>
+    <head>
+		<title>KindleFolder: send files from dropbox to your kindle</title>
+        <link rel="stylesheet" href="/static/style.css" type="text/css" />
+		<script src="http://code.jquery.com/jquery-latest.js"></script>
+		<script type="text/javascript">
+			var _gaq = _gaq || [];
+			_gaq.push(['_setAccount', 'UA-28115512-1']);
+			_gaq.push(['_trackPageview']);
+			  
+			(function() {
+			  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			  ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+			})();
+		</script>
+    </head>
+<body>
+    <div id="wrap">
+		
+        <div id="main">
+            <div id="main_container">
+                <div id="kindle">
+                </div>
+                <div id="right_side">
+					{% with messages = get_flashed_messages(with_categories=true) %}
+						{% if messages %}
+							<div class="flashes">
+								<ul>
+									{% for category, message in messages %}
+										<li class="{{ category }}">{{ message }}</li>
+									{% endfor %}
+								</ul>
+							</div>
+						{% endif %}
+					{% endwith %}
+				
+					{% block body %}{% endblock %}
+				</div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="footer">
+        <div id="footer_container">
+            <div id="KindleFolder_logo"><a href="/">KindleFolder</a></div>
+            <div id="created_by">Created by <a href="http://www.twitter.com/gpleiss">@gpleiss</a> and <a href="http://www.twitter.com/cgallello">@cgallello</a> | <a href="/about">About</a> | <a href="{{ url_for('unsubscribe') }}">Unsubscribe</a></div>
+        </div>
+    </div>
+</body>
+</html>

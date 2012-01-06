@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+{% block body %}
+	
+	<h1>Almost there...</h1>
+	<div id="before_connected">
+		<h3>Click below to authorize KindleFolder to access your Dropbox.</h3>
+		<a href="{{ db_auth_url }}" target="_blank"><input type="submit" class="button" value="Authorize with Dropbox" id="authorize_button" /></a>
+	</div>
+	<div id="when_connected" style="display:none;">
+		<p>Once you've connected your Dropbox account with the app, please click the button below:</p>
+		<form method="post" action="confirm_add" id="confirm_form">
+			<input type="hidden" name="request_token", value="{{ request_token }}" />
+			<input type="hidden" name="person_id", value="{{ person_id }}" />
+			<input type="submit" value="Confirmed" />
+		</form>
+	</div>
+	
+	<script>
+		$('#authorize_button').click(function() {
+			$('#before_connected').hide();
+			$('#when_connected').show();
+		});	
+	</script>	
+{% endblock %}
+
+

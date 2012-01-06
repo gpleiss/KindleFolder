@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+{% block body %}
+
+<h1>Unsubscribe</h1>
+
+<p>Unsubscribing will stop KindleFolder from sending documents to your Kindle and remove all of your information from our database.</p>
+<p>To unsubscribe, please enter your personal email address. You will be sent an email to validate the action.</p>
+
+<form method="POST" action="send_unsubscribe_email">
+	<input type="text" name="personal_email" id="personal_email" class="homepage_inputs" placeholder="Your personal email" required="required" />
+	<input type="submit" class="button" value="Submit" id="submit_button">
+</form>
+
+{% endblock %}
