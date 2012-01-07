@@ -18,7 +18,7 @@ kindle_mime_types = ['application/pdf', 'application/msword',
 sent_files_foldername = "/Files Sent" # Folder containing files sent to kindle
 
 
-def send_files_to_kindle(account, kindle_email, files_sent):
+def send_files_to_kindle(account, kindle_email):
 	''' Looks in app folder and emails all valid files to kindle
 		 A valid file is one with a valid mime-type, and one that has not
 			been sent before.
@@ -27,6 +27,7 @@ def send_files_to_kindle(account, kindle_email, files_sent):
 			level of the folder will be sent
 	'''
 	
+	files_sent = []
 	metadata = account.metadata('', list=True)
 	files = metadata['contents']
 	print files
@@ -51,6 +52,7 @@ def send_files_to_kindle(account, kindle_email, files_sent):
 				sendemail.mail(kindle_email,"Files","Here's your file!", path_local)
 				account.file_move(path, sent_files_foldername+path)
 				os.remove(path_local)
+				files_sent.append(path)
 				
 	return files_sent
 
@@ -62,45 +64,60 @@ def main(name):
 	cur = db.cursor()
 
 	i = 1
-	files_sent = 0
 		
 	sql = "SELECT id FROM accounts" 
 	# Selecting first id right now	
 	cur.execute(sql)
 	id_list = list(cur.fetchall()) # Returns a tuple (access_token, access_secret)
+	
+	if not os.path.exists('log/sent_files_log.txt'):
+		f = open('log/sent_files_log.txt', 'w')
+	else:
+		f = open('log/sent_files_log.txt', 'a')
 		
 	for item in id_list:
-		length = len(item)
-		itemm = filter(lambda x: x.isdigit(), item.__str__())
-		sql = "select app_key, app_secret, access_token, access_secret, kindle_email from accounts where id=" + itemm.__str__()
-		# Selecting first id right now	
-		cur.execute(sql)
-		# Returns a tuple (access_token, access_secret)
-		access_strings = cur.fetchone() 
-		if access_strings is None:
-			continue
-			
-		app_key = access_strings[0]
-		app_secret = access_strings[1]
-		access_token = access_strings[2]
-		access_secret = access_strings[3]
-		kindle_email = access_strings[4]
-
-		# With retrieved access strings, accesses dropbox account
-		if (access_token or access_secret or kindle_email) is None:
-			continue
-		try: 
-			sess = session.DropboxSession(app_key, app_secret, "app_folder")
-			sess.set_token(access_token, access_secret)
-			account = client.DropboxClient(sess)
-			
-			print "Call #", i.__str__()
-			print kindle_email
-			files_sent = send_files_to_kindle(account, kindle_email, files_sent)
-			i += 1
-			print "files_sent:", files_sent
+		try:
+			length = len(item)
+			itemm = filter(lambda x: x.isdigit(), item.__str__())
+			sql = "select app_key, app_secret, access_token, access_secret, kindle_email from accounts where id=" + itemm.__str__()
+			# Selecting first id right now	
+			cur.execute(sql)
+			# Returns a tuple (access_token, access_secret)
+			access_strings = cur.fetchone() 
+			if access_strings is None:
+				continue
+				
+			app_key = access_strings[0]
+			app_secret = access_strings[1]
+			access_token = access_strings[2]
+			access_secret = access_strings[3]
+			kindle_email = access_strings[4]
+	
+			# With retrieved access strings, accesses dropbox account
+			print (access_token, access_secret, kindle_email)
+			if access_token is None or access_secret is None or kindle_email is None:
+				continue
+			try: 
+				sess = session.DropboxSession(app_key, app_secret, "app_folder")
+				sess.set_token(access_token, access_secret)
+				account = client.DropboxClient(sess)
+				
+				print "Call #", i.__str__()
+				print kindle_email
+				files_sent = send_files_to_kindle(account, kindle_email)
+				print "files_sent:", files_sent
+				f.write("Call #" + i.__str__() + ", ")
+				f.write(kindle_email + "\n")
+				f.write("files_sent: " + files_sent.__str__() + "\n")
+				i += 1
+			except:
+				print "something went wrong"
 		except:
-			pass
+			sendemail.mail_without_attach("chrisgallello@gmail.com", "KindleFolder Error: authenticate_paths for loop error","There was an issue with one of the for loop things in authenticate_paths.py.")
+			sendemail.mail_without_attach("gpleiss@gmail.com", "KindleFolder Error: authenticate_paths for loop error","There was an issue with one of the for loop things in authenticate_paths.py.")
+			
+	f.write("\n")
+	f.close()
 
 
 	

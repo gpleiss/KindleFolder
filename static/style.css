@@ -69,6 +69,10 @@ a{
     margin-bottom:10px;
 }
 
+textarea.homepage_inputs{
+	height:150px;
+}
+
 #submit_button{
         width:104px;
         height:45px;

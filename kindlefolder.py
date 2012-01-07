@@ -95,7 +95,7 @@ def confirm():
 	request_token = request.args.get('request_token')
 	db_auth_url = request.args.get('db_auth_url')
 	
-	if (person_id or request_token or db_auth_url) is None:
+	if person_id is None or request_token is None or db_auth_url is None:
 		abort(400)
 	else:
 		return render_template('confirm.html', person_id=person_id, request_token=request_token, db_auth_url=db_auth_url)
@@ -144,10 +144,10 @@ def confirm_add():
 def success():
 	kindle_email = request.args.get('kindle_email')
 	personal_email = request.args.get('personal_email')	
-	if (kindle_email or personal_email) is None:
+	if kindle_email is None or personal_email is None:
 		abort(400)
 	else:
-		sendemail.mail_without_attach(personal_email, "Welcome to KindleFolder!","Welcome to KindleFolder's free service!<br /><br />Please complete the following instructions to complete setup. <ol><li>Go to Manage Your Kindle on Amazon.com or <a href='https://www.amazon.com/gp/digital/fiona/manage?ie=UTF8&ref_=ya_14&'>click here</a>.</li><li>Go to &quot;Personal Document Settings&quot;, then under the &quot;Approved Personal Document E-mail List&quot;, click &quot;Add a new approved e-mail address&quot;.</li><li>Enter &quot;unicorns@kindlefolder.us&quot; and then click &quot;Add Address&quot;. We like unicorns.</li><li>Within the &quot;Apps&quot; folder of your Dropbox, a new folder will appear called &quot;KindleFolder&quot;. Any file that a Kindle can open will automatically be sent to your Kindle! Please note that this service uses Amazon's Kindle Personal Document Service. Charges may apply for use over 3G.</li></ol><br />If you followed these directions, you should be good to go! Feel free to unsubscribe at any point by visiting <a href='http://www.kindlefolder.us/unsubscribe'>http://www.kindlefolder.us/unsubscribe</a>.<br /><br />Thanks!<br /><br />Chris and Geoff from KindleFolder")
+		sendemail.mail_without_attach(personal_email, "Welcome to KindleFolder!","Welcome to KindleFolder's free service!<br /><br />Please complete the following instructions to complete setup. <ol><li>Go to Manage Your Kindle on Amazon.com or <a href='https://www.amazon.com/gp/digital/fiona/manage?ie=UTF8&ref_=ya_14&'>click here</a>.</li><li>Go to &quot;Personal Document Settings&quot;, then under the &quot;Approved Personal Document E-mail List&quot;, click &quot;Add a new approved e-mail address&quot;.</li><li>Enter &quot;unicorns@kindlefolder.us&quot; and then click &quot;Add Address&quot;. We like unicorns.</li><li>Within the &quot;Apps&quot; folder of your Dropbox, a new folder will appear called &quot;KindleFolder&quot;. Any file that a Kindle can open will automatically be sent to your Kindle! Please note that this service uses Amazon's Kindle Personal Document Service - as a result, it may take up to 5 minutes for your file to be sent to your Kindle. Charges may apply for use over 3G.</li></ol><br />If you followed these directions, you should be good to go! Feel free to unsubscribe at any point by visiting <a href='http://www.kindlefolder.us/unsubscribe'>http://www.kindlefolder.us/unsubscribe</a>.<br /><br />Thanks!<br /><br />Chris and Geoff from KindleFolder")
 
 		return render_template("success.html", kindle_email=kindle_email, personal_email=personal_email)
 			
@@ -155,7 +155,17 @@ def success():
 @app.route('/failure', methods=['GET'])
 def failure():
 	return render_template("failure.html");
-			
+	
+	
+@app.route('/about', methods=['GET'])
+def setup():
+	return render_template("about.html");
+	
+
+@app.route('/support', methods=['GET'])
+def support():
+	return render_template("support.html");
+	
 
 @app.route('/unsubscribe', methods=['GET'])
 def unsubscribe():
@@ -197,7 +207,7 @@ def unsubscribe_email_sent():
 def remove():
 	personal_email = request.args.get('personal_email')
 	unsubscribe_token = request.args.get('unsubscribe_token')
-	if (personal_email or unsubscribe_token) is None:
+	if personal_email is None or unsubscribe_token is None:
 		abort(400)
 		
 	sql = ''' select unsubscribe_token from accounts where personal_email='%s' ''' % personal_email
