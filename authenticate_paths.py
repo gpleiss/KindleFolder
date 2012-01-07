@@ -72,8 +72,7 @@ def main(name):
 	
 	if not os.path.exists('log/sent_files_log.txt'):
 		os.popen('touch log/sent_files_log.txt')
-	else:
-		f = open('log/sent_files_log.txt', 'a')
+	f = open('log/sent_files_log.txt', 'a')
 		
 	for item in id_list:
 		try:
