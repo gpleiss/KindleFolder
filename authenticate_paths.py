@@ -26,7 +26,6 @@ def send_files_to_kindle(account, kindle_email):
 		 NOTE: App folderis not viewed recursivly. Only files at the base
 			level of the folder will be sent
 	'''
-	
 	files_sent = []
 	metadata = account.metadata('', list=True)
 	files = metadata['contents']
