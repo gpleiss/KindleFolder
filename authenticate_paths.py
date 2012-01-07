@@ -71,7 +71,7 @@ def main(name):
 	id_list = list(cur.fetchall()) # Returns a tuple (access_token, access_secret)
 	
 	if not os.path.exists('log/sent_files_log.txt'):
-		f = open('log/sent_files_log.txt', 'w')
+		os.popen('touch log/sent_files_log.txt')
 	else:
 		f = open('log/sent_files_log.txt', 'a')
 		
