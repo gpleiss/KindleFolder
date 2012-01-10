@@ -1,9 +1,10 @@
-import sys, os, MySQLdb, sendemail, time
+import sys, os, sendemail, time
 from dropbox import client, rest, session
 from email.mime.multipart import MIMEMultipart
 from email.MIMEBase import MIMEBase
 from email.MIMEText import MIMEText
 from email import Encoders
+from person import Person
 
 
 # Get all variables
@@ -57,65 +58,45 @@ def send_files_to_kindle(account, kindle_email):
 
 
 def main(name):
-	
-	# From accounts database, get account access strings
-	db =  MySQLdb.connect(host=HOST, user=USERNAME, passwd=PASSWORD, db=DATABASE)
-	cur = db.cursor()
 
 	i = 1
 		
-	sql = "SELECT id FROM accounts" 
-	# Selecting first id right now	
-	cur.execute(sql)
-	id_list = list(cur.fetchall()) # Returns a tuple (access_token, access_secret)
-	
 	if not os.path.exists('log/sent_files_log.txt'):
 		os.popen('touch log/sent_files_log.txt')
 	f = open('log/sent_files_log.txt', 'a')
-		
-	for item in id_list:
-		try:
-			length = len(item)
-			itemm = filter(lambda x: x.isdigit(), item.__str__())
-			sql = "select app_key, app_secret, access_token, access_secret, kindle_email from accounts where id=" + itemm.__str__()
-			# Selecting first id right now	
-			cur.execute(sql)
-			# Returns a tuple (access_token, access_secret)
-			access_strings = cur.fetchone() 
-			if access_strings is None:
-				continue
-				
-			app_key = access_strings[0]
-			app_secret = access_strings[1]
-			access_token = access_strings[2]
-			access_secret = access_strings[3]
-			kindle_email = access_strings[4]
 	
+	Person.connect_db()
+	ps = Person.find_all()
+	print ps
+		
+	for p in ps:
+		try:
+			
 			# With retrieved access strings, accesses dropbox account
-			print (access_token, access_secret, kindle_email)
-			if access_token is None or access_secret is None or kindle_email is None:
+			print (p.access_token, p.access_secret, p.kindle_email)
+			if not p.can_send_files_to_kindle():
 				continue
 			try: 
-				sess = session.DropboxSession(app_key, app_secret, "app_folder")
-				sess.set_token(access_token, access_secret)
+				sess = session.DropboxSession(APP_KEY, APP_SECRET, ACCESS_TYPE)
+				sess.set_token(p.access_token, p.access_secret)
 				account = client.DropboxClient(sess)
 				
-				print "Call #", i.__str__()
-				print kindle_email
-				files_sent = send_files_to_kindle(account, kindle_email)
+				files_sent = send_files_to_kindle(account, p.kindle_email)
 				print "files_sent:", files_sent
 				f.write("Call #" + i.__str__() + ", ")
-				f.write(kindle_email + "\n")
+				f.write(p.kindle_email + "\n")
 				f.write("files_sent: " + files_sent.__str__() + "\n")
 				i += 1
 			except:
 				print "something went wrong"
 		except:
-			sendemail.mail_without_attach("chrisgallello@gmail.com", "KindleFolder Error: authenticate_paths for loop error","There was an issue with one of the for loop things in authenticate_paths.py.")
-			sendemail.mail_without_attach("gpleiss@gmail.com", "KindleFolder Error: authenticate_paths for loop error","There was an issue with one of the for loop things in authenticate_paths.py.")
+			#sendemail.mail_without_attach("chrisgallello@gmail.com", "KindleFolder Error: authenticate_paths for loop error","There was an issue with one of the for loop things in authenticate_paths.py.<br /><br />")
+			#sendemail.mail_without_attach("gpleiss@gmail.com", "KindleFolder Error: authenticate_paths for loop error","There was an issue with one of the for loop things in authenticate_paths.py.<br /><br />")
+			pass
 			
 	f.write("\n")
 	f.close()
+	Person.close_db()
 
 
 	
