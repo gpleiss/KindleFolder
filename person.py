@@ -13,13 +13,6 @@ class Person():
 		Person.db = MySQLdb.connect(host=HOST, user=USERNAME, passwd=PASSWORD, db=DATABASE)
 		Person.cur = Person.db.cursor()
 		return Person.db
-		
-		
-	@staticmethod
-	def init_db():
-		with closing(connect_db()) as db:
-			with app.open_resource('db/schema.sql') as f:
-				db.cursor().executescript(f.read())
 				
 				
 	@staticmethod
