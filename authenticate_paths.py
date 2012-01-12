@@ -48,9 +48,11 @@ def send_files_to_kindle(account, kindle_email):
 				file.write(download)
 				file.close()
 				
+				print "got here"
 				# Send local copy of file to kindle, and then remove local copy
 				sendemail.mail(kindle_email,"Files","Here's your file!", path_local)
 				account.file_move(path, sent_files_foldername+path)
+				print "got here now"
 				os.remove(path_local)
 				files_sent.append(path)
 				

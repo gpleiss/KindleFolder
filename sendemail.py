@@ -55,7 +55,7 @@ def mail_without_attach(to, subject, text):
    SMTP_PORT = 587
     
    sender = 'unicorns@kindlefolder.us'
-   password = 'fuckcalvin'
+   password = 'fuckingcalvin'
    recipient = to
    body = text
    subject = subject

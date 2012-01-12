@@ -149,8 +149,10 @@ def send_unsubscribe_email():
 		flash('Email was not found in our database', 'error')
 		return render_template("unsubscribe.html")
 	
-	# Generate unsubscribe token for an account with the personal email, send it in an email to the user
+	# Generate unsubscribe token for an account with the personal email
 	unsubscribe_token = ps[0].generate_unsubscribe_token()
+	
+	# Send unsubscribe token to user via email
 	sendemail.mail_without_attach(personal_email, "Unsubscribe","Hello!<br /><br />You have requested to be unsubscribed from KindleFolder's service. Please click the link below to confirm. <br /><br />%s<br /><br />If you did not request to be unsubscribed, please ignore this email. If you keep receiving this email, please contact support@kindlefolder.us.<br /><br />Thanks!<br /><br />Chris and Geoff from KindleFolder" % (ROOT + url_for('remove', personal_email=personal_email, unsubscribe_token=unsubscribe_token)))
 	return redirect(url_for("unsubscribe_email_sent", personal_email=personal_email))
 	
