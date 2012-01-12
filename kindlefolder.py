@@ -90,7 +90,7 @@ def confirm_add():
 	
 	# Obtain access tokens from dropbox, and add them to the associated account in the database
 	try:
-		sess = dropbox.session.DropboxSession(APP_KEY, APP_SECRET, 'app_folder')
+		sess = dropbox.session.DropboxSession(APP_KEY, APP_SECRET, ACCESS_TYPE)
 		request_token = oauth.oauth.OAuthToken.from_string(request_token)
 		full_access_token = sess.obtain_access_token(request_token)
 		
