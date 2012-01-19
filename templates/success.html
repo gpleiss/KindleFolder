@@ -1,9 +1,18 @@
 {% extends "layout.html" %}
 {% block body %}
-	<h1>SUCCESS!</h1>
+	<h1>Connect to Amazon</h1>
 
-
-	<p>You're all set!</p>
+	<p>You're all set on our end! Your information is below (we'll keep it safe!)</p>
 	<p>Your Kindle email address: {{ kindle_email }}</p>
-	<p>Your personal email address (we'll keep this safe!): {{ personal_email}}</p>
+	<p>Your personal email address: {{ personal_email}}</p>
 {% endblock %}
+
+	<p>Please complete the following instructions to complete setup.
+	<ol>
+		<li>Go to Manage Your Kindle on Amazon.com or <a href='https://www.amazon.com/gp/digital/fiona/manage?ie=UTF8&ref_=ya_14&'>click here</a>.</li>
+		<li>Go to &quot;Personal Document Settings&quot;, then under the &quot;Approved Personal Document E-mail List&quot;, click &quot;Add a new approved e-mail address&quot;.</li>
+		<li>Enter &quot;unicorns@kindlefolder.us&quot; and then click &quot;Add Address&quot;. We like unicorns.</li>
+		<li>Within the &quot;Apps&quot; folder of your Dropbox, a new folder will appear called &quot;KindleFolder&quot;. Any file that a Kindle can open will automatically be sent to your Kindle! Please note that this service uses Amazon's Kindle Personal Document Service - as a result, it may take up to 5 minutes for your file to be sent to your Kindle. Charges may apply for use over 3G.</li>
+	</ol>
+	<br />
+	<p>Once you followed these directions, you should be good to go! Feel free to unsubscribe at any point by visiting <a href='http://www.kindlefolder.us/unsubscribe'>http://www.kindlefolder.us/unsubscribe</a>. You will also receive an email with these directions.</p>

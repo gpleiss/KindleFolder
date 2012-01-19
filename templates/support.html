@@ -7,11 +7,11 @@
 	KindleFolder, please email us at <a href="mailto:support@kindlefolder.us">
 	support@kindlefolder.us</a></p>
 	
-	<p>Basic troubleshooting: did you make sure to</p>
+	<p>Troubleshooting:</p>
 	<ul>
-		<li>Add unicorns@kindlefolder.us to your kindle whitelist?</li>
-		<li>Change your kindle email address?</li>
-		<li>Wait 5 minutes or so for files to be delivered? Sometimes kindle's file email service is slow.</li>
+		<li>Documents not sending: Did you add unicorns@kindlefolder.us to your Kindle whitelist? Visit the <a href="{{ url_for('about') }}">about page</a> to see how.</li>
+		<li>Documents not sending: Have you recently changed your kindle email address? If so, <a href="{{ url_for('unsubscribe') }}">unsubscribe</a>, then sign up again.</li>
+		<li>Service is slow: Please be aware that  the KindleFolder service runs off of Amazon Kindle&#39;s Personal Document Service, which can be slow at times.</li>
 	</ul>
 	
 {% endblock %}
