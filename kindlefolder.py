@@ -202,7 +202,7 @@ def unsubscribe_confirm():
 				
 				
 @app.route('/about', methods=['GET'])
-def setup():
+def about():
 	return render_template("about.html");
 	
 
