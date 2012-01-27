@@ -51,7 +51,21 @@ def send_files_to_kindle(account, kindle_email):
 				print "got here"
 				# Send local copy of file to kindle, and then remove local copy
 				sendemail.mail(kindle_email,"Files","Here's your file!", path_local)
-				account.file_move(path, sent_files_foldername+path)
+				try:
+                                        account.file_move(path, sent_files_foldername+path)
+                                except 400:
+                                        f = open('log/sent_files_log.txt', 'a')
+                                        f.write("400 error when moving the file" + "\n")
+                                        f.close()
+                                except 404:
+                                        f = open('log/sent_files_log.txt', 'a')
+                                        f.write("404 error when moving the file" + "\n")
+                                        f.close()
+                                except 503:
+                                        f = open('log/sent_files_log.txt', 'a')
+                                        f.write("503 error when moving the file" + "\n")
+                                        f.close()
+                                        
 				print "got here now"
 				os.remove(path_local)
 				files_sent.append(path)
